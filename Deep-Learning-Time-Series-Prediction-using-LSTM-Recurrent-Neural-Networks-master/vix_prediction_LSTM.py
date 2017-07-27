@@ -27,7 +27,7 @@ np.random.seed(1234)
 # load the data
 path_to_dataset = 'NiftyFull.csv'
 #path_to_dataset = 'vix_2005_2016.csv'
-sequence_length = 40
+sequence_length = 100
 
 # vector to store the time series
 vector_vix = []
@@ -66,11 +66,20 @@ train_set = matrix_vix[:train_row, :]
 np.random.shuffle(train_set)
 # the training set
 X_train = train_set[:, :-1]
+#X_train = np.reshape(X_train,(3696,1,39))
 # the last column is the true value to compute the mean-squared-error loss
-y_train = train_set[:, -1] 
+y_train_orig = train_set[:, -1] 
+temp = np.append(X_train[0,38],y_train_orig)
+A = temp[:-1]
+B = temp[1:]
+y_train = (B >= A)
 # the test set
 X_test = matrix_vix[train_row:, :-1]
-y_test = matrix_vix[train_row:, -1]
+y_test_orig = matrix_vix[train_row:, -1]
+temp = np.append(X_train[0,38],y_test_orig)
+A = temp[:-1]
+B = temp[1:]
+y_test = (B >= A)
 
 # the input to LSTM layer needs to have the shape of (number of samples, the dimension of each element)
 X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
@@ -86,32 +95,39 @@ model.add(LSTM(output_dim=100, return_sequences=False))
 model.add(Dropout(0.2))
 # layer 3: dense
 # linear activation: a(x) = x
-model.add(Dense(output_dim=1, activation='linear'))
+model.add(Dense(output_dim=1, activation='sigmoid'))
 # compile the model
-model.compile(loss="mse", optimizer="adam")
+model.compile(loss="binary_crossentropy", optimizer="adam",metrics=['accuracy'])
 
 # train the model
-model.fit(X_train, y_train, batch_size=512, nb_epoch=1000, validation_split=0.05, verbose=1)
+model.fit(X_train, y_train, batch_size=32, nb_epoch=50, validation_split=0.05, verbose=1)
 
 # evaluate the result
 test_mse = model.evaluate(X_test, y_test, verbose=1)
-print( '\nThe mean squared error (MSE) on the test data set is %.3f over %d test samples.' % (test_mse, len(y_test)))
 
-# get the predicted values
-predicted_values = model.predict(X_test)
-num_test_samples = len(predicted_values)
-predicted_values = np.reshape(predicted_values, (num_test_samples,1))
+predicted_values = model.predict_classes(X_test)
 
-# plot the results
-fig = plt.figure()
-plt.plot(y_test )
-plt.plot(predicted_values )
-plt.xlabel('Date')
-plt.ylabel('VIX')
-plt.show()
-fig.savefig('output_prediction.jpg', bbox_inches='tight')
-
-# save the result into txt file
-test_result = zip(predicted_values, y_test) + shifted_value
-np.savetxt('output_result.txt', test_result)
+for i in range(len(predicted_values)):
+    print(predicted_values[i],y_test[i])
+    
+    
+#print( '\nThe mean squared error (MSE) on the test data set is %.3f over %d test samples.' % (test_mse, len(y_test)))
+#
+## get the predicted values
+#predicted_values = model.predict(X_test)
+#num_test_samples = len(predicted_values)
+#predicted_values = np.reshape(predicted_values, (num_test_samples,1))
+#
+## plot the results
+#fig = plt.figure()
+#plt.plot(y_test )
+#plt.plot(predicted_values )
+#plt.xlabel('Date')
+#plt.ylabel('VIX')
+#plt.show()
+#fig.savefig('output_prediction.jpg', bbox_inches='tight')
+#
+## save the result into txt file
+#test_result = zip(predicted_values, y_test) + shifted_value
+#np.savetxt('output_result.txt', test_result)
 
