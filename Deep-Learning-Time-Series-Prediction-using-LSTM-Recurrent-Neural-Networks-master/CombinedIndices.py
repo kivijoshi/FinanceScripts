@@ -85,7 +85,7 @@ Matrix = np.hstack((NIFTY,NIFTYAUTO,NIFTYBANK,NIFTYFIN,NIFTYFMCG,NIFTYIT,NIFTYME
 #data.head()
 #
 #NumpyData = data.as_matrix()
-look_back = 6
+look_back = 8
 
 def convertSeriesToMatrix(vectorSeries, look_back_window):
     matrix=[]
@@ -123,7 +123,7 @@ Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.10)
 print(Xtrain.shape)
 print(Xtest.shape)
 
-gadaboost = GradientBoostingClassifier()
+gadaboost = RandomForestClassifier()
 gadaboost.fit(Xtrain, ytrain)
 y_val_l = gadaboost.predict_proba(Xtest)
 print("Validation accuracy: ", sum(pd.DataFrame(y_val_l).idxmax(axis=1).values
@@ -161,6 +161,6 @@ indices = np.argsort(gadaboost.feature_importances_)[::-1]
 # Print the feature ranking
 print('Feature ranking:')
 
-for f in range(Pandas_Matrix.shape[1]):
-    print('%d. feature %d %s (%f)' % (f+1 , indices[f], Pandas_Matrix.columns[indices[f]],
-                                      gadaboost.feature_importances_[indices[f]]))
+#for f in range(Pandas_Matrix.shape[1]):
+#    print('%d. feature %d %s (%f)' % (f+1 , indices[f], Pandas_Matrix.columns[indices[f]],
+#                                      gadaboost.feature_importances_[indices[f]]))
