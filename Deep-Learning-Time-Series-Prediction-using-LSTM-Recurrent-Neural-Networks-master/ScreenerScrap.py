@@ -53,3 +53,4 @@ MagicFormulizedData['MagicID'] = MagicFormulizedData['Yield Rank'] + MagicFormul
 
 MagicFormulizedData = MagicFormulizedData.sort(['MagicID','Piotroski score'],ascending=[1,0])
 
+MagicFormulizedData.to_csv("IndianStocksRanked.csv")
