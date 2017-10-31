@@ -3,6 +3,7 @@ Joel Greenblatt's magic formula combined with piotroski f score is applied to in
 Below is the list of top companies.
  * Please exclude yourself the utility and finance companies as those do not follow magic formula investing well
  
+ Updated list on 31st Oct 2017
  
 |    | S No | Name             | Current price | Price to Earning | Market Capitalization | Dividend yield | Net Profit latest quarter | YOY Quarterly profit growth | Sales latest quarter | YOY Quarterly sales growth | Price to book value | Return on invested capital | Earnings yield | Piotroski score | ROIC Rank | Yield Rank | MagicID |
 |----|------|------------------|---------------|------------------|-----------------------|----------------|---------------------------|-----------------------------|----------------------|----------------------------|---------------------|----------------------------|----------------|-----------------|-----------|------------|---------|
