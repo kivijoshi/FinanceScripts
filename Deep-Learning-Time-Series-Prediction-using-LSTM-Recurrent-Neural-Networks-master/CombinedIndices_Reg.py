@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import SGDClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier,GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier,GradientBoostingClassifier,RandomForestRegressor
 from sklearn.calibration import CalibratedClassifierCV
 #import xgboost as xgb
 from sklearn.model_selection import GridSearchCV
@@ -117,37 +117,25 @@ Pandas_Matrix = pd.DataFrame(Matrix)
 #    Pandas_Matrix = Pandas_Matrix.drop([i,i+1,i+2,i+3,i+4,i+6],axis=1)
 #
 #Pandas_Matrix = Pandas_Matrix.drop([(7*look_back-7)],axis = 1)
-def f(row):
-    if row[33] > 0:
-        val = 1
-    else:
-        val = 0
-    return val
-
-Pandas_Matrix['Main'] = Pandas_Matrix.apply(f, axis=1)
+#def f(row):
+#    if row[33] > 0:
+#        val = 1
+#    else:
+#        val = 0
+#    return val
+#
+#Pandas_Matrix['Main'] = Pandas_Matrix.apply(f, axis=1)
 
 Pandas_Matrix['MovingAvarage_1'] = pd.rolling_mean(Pandas_Matrix[11], window = 100, min_periods = 100)
 Pandas_Matrix['MovingAvarage_2'] = pd.rolling_mean(Pandas_Matrix[11], window = 50, min_periods = 50)
 Pandas_Matrix['MovingAvarage_3'] = pd.rolling_mean(Pandas_Matrix[11], window = 10, min_periods = 10)
 Pandas_Matrix['MovingAvarage_4'] = pd.rolling_mean(Pandas_Matrix[11], window = 5, min_periods = 5)
 Pandas_Matrix['MovingAvarage_5'] = pd.rolling_mean(Pandas_Matrix[11], window = 15, min_periods = 15)
-Pandas_Matrix['MovingAvarage_6'] = pd.rolling_mean(Pandas_Matrix[12], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_7'] = pd.rolling_mean(Pandas_Matrix[13], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_8'] = pd.rolling_mean(Pandas_Matrix[14], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_9'] = pd.rolling_mean(Pandas_Matrix[15], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_10'] = pd.rolling_mean(Pandas_Matrix[16], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_11'] = pd.rolling_mean(Pandas_Matrix[17], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_12'] = pd.rolling_mean(Pandas_Matrix[18], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_13'] = pd.rolling_mean(Pandas_Matrix[19], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_14'] = pd.rolling_mean(Pandas_Matrix[20], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_15'] = pd.rolling_mean(Pandas_Matrix[21], window = 50, min_periods = 50)
-
-
-
 Pandas_Matrix = Pandas_Matrix[100:]
 
-y = Pandas_Matrix['Main'].values
-Pandas_Matrix = Pandas_Matrix.drop(['Main',33,34,35,36,37,38,39,40,41,42,43],axis=1)
+#y = Pandas_Matrix['Main'].values
+y = Pandas_Matrix[33].values
+Pandas_Matrix = Pandas_Matrix.drop([33,34,35,36,37,38,39,40,41,42,43],axis=1)
 X = Pandas_Matrix.values
 #Xtrain, Xtest = X[:int(len(X) * 0.90)], X[int(len(X) * 0.90):] 
 #ytrain, ytest = y[:int(len(y) * 0.90)], y[int(len(y) * 0.90):] 
@@ -156,13 +144,16 @@ Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.01, random_sta
 print(Xtrain.shape)
 print(Xtest.shape)
 
-gadaboost = GradientBoostingClassifier()
+gadaboost = RandomForestRegressor()
 gadaboost.fit(Xtrain, ytrain)
 
-with open('my_dumped_classifier.pkl', 'wb') as fid:
-    pickle.dump(gadaboost, fid)    
+#with open('my_dumped_classifier.pkl', 'wb') as fid:
+#    pickle.dump(gadaboost, fid)    
     
-y_val_l = gadaboost.predict_proba(Xtest)
+y_val_l = gadaboost.predict(Xtest)
+for i in range(len(y_val_l)):
+    PrintLn = str(y_val_l[i]) + "," + str(ytest[i])
+    print(PrintLn)
 print("Validation accuracy: ", sum(pd.DataFrame(y_val_l).idxmax(axis=1).values
                                    == ytest)/len(ytest))
 

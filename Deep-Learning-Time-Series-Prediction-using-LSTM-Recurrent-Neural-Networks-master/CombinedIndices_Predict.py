@@ -24,69 +24,69 @@ import datetime
 import pickle
 from sklearn.naive_bayes import GaussianNB
 
-AfterDate = datetime.date(2012,1,1)
+AfterDate = datetime.date(2016,1,24)
 
-NIFTY = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTY.csv")
+NIFTY = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty 50 Historical Rates - Investing.com.csv")
 NIFTY['Date'] = pd.to_datetime(NIFTY['Date'])
-NIFTY = NIFTY[(NIFTY.Date > AfterDate) & (NIFTY.Date < datetime.date(2017,7,25)) ]
+NIFTY = NIFTY[(NIFTY.Date > AfterDate) & (NIFTY.Date < datetime.date(2017,8,25)) ]
 NIFTY = NIFTY.as_matrix(["Change %"])
 NIFTY = np.flipud(NIFTY)
 
-NIFTYAUTO = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYAUTO.csv")
+NIFTYAUTO = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Auto Historical Rates - Investing.com.csv")
 NIFTYAUTO['Date'] = pd.to_datetime(NIFTYAUTO['Date'])
 NIFTYAUTO = NIFTYAUTO[NIFTYAUTO.Date > AfterDate ]
 NIFTYAUTO = NIFTYAUTO.as_matrix(["Change %"])
 NIFTYAUTO = np.flipud(NIFTYAUTO)
 
-NIFTYBANK = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYBANK.csv")
+NIFTYBANK = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Bank Historical Rates - Investing.com.csv")
 NIFTYBANK['Date'] = pd.to_datetime(NIFTYBANK['Date'])
 NIFTYBANK = NIFTYBANK[NIFTYBANK.Date > AfterDate ]
 NIFTYBANK = NIFTYBANK.as_matrix(["Change %"])
 NIFTYBANK = np.flipud(NIFTYBANK)
 
-NIFTYFIN = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYFIN.csv")
+NIFTYFIN = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Financial Services Historical Rates - Investing.com.csv")
 NIFTYFIN['Date'] = pd.to_datetime(NIFTYFIN['Date'])
 NIFTYFIN = NIFTYFIN[NIFTYFIN.Date > AfterDate ]
 NIFTYFIN = NIFTYFIN.as_matrix(["Change %"])
 NIFTYFIN = np.flipud(NIFTYFIN)
 
-NIFTYFMCG = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYFMCG.csv")
+NIFTYFMCG = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty FMCG Historical Rates - Investing.com.csv")
 NIFTYFMCG['Date'] = pd.to_datetime(NIFTYFMCG['Date'])
 NIFTYFMCG = NIFTYFMCG[NIFTYFMCG.Date > AfterDate ]
 NIFTYFMCG = NIFTYFMCG.as_matrix(["Change %"])
 NIFTYFMCG = np.flipud(NIFTYFMCG)
 
-NIFTYIT = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYIT.csv")
+NIFTYIT = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty IT Historical Rates - Investing.com.csv")
 NIFTYIT['Date'] = pd.to_datetime(NIFTYIT['Date'])
 NIFTYIT = NIFTYIT[NIFTYIT.Date > AfterDate ]
 NIFTYIT = NIFTYIT.as_matrix(["Change %"])
-NIFTYIT = np.flipud(NIFTYIT)
+NIFTYAUTO = np.flipud(NIFTYAUTO)
 
-NIFTYMEDIA = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYMEDIA.csv")
+NIFTYMEDIA = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Media Historical Rates - Investing.com.csv")
 NIFTYMEDIA['Date'] = pd.to_datetime(NIFTYMEDIA['Date'])
 NIFTYMEDIA = NIFTYMEDIA[NIFTYMEDIA.Date > AfterDate ]
 NIFTYMEDIA = NIFTYMEDIA.as_matrix(["Change %"])
 NIFTYMEDIA = np.flipud(NIFTYMEDIA)
 
-NIFTYMETAL = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYMETAL.csv")
+NIFTYMETAL = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Metal Historical Rates - Investing.com.csv")
 NIFTYMETAL['Date'] = pd.to_datetime(NIFTYMETAL['Date'])
 NIFTYMETAL = NIFTYMETAL[NIFTYMETAL.Date > AfterDate ]
 NIFTYMETAL = NIFTYMETAL.as_matrix(["Change %"])
 NIFTYMETAL = np.flipud(NIFTYMETAL)
 
-NIFTYPHARMA = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYPHARMA.csv")
+NIFTYPHARMA = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Pharma Historical Rates - Investing.com.csv")
 NIFTYPHARMA['Date'] = pd.to_datetime(NIFTYPHARMA['Date'])
 NIFTYPHARMA = NIFTYPHARMA[NIFTYPHARMA.Date > AfterDate ]
 NIFTYPHARMA = NIFTYPHARMA.as_matrix(["Change %"])
 NIFTYPHARMA = np.flipud(NIFTYPHARMA)
 
-NIFTYPSU = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYPSU.csv")
+NIFTYPSU = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty PSU Bank Historical Rates - Investing.com.csv")
 NIFTYPSU['Date'] = pd.to_datetime(NIFTYPSU['Date'])
 NIFTYPSU = NIFTYPSU[NIFTYPSU.Date > AfterDate ]
 NIFTYPSU = NIFTYPSU.as_matrix(["Change %"])
 NIFTYPSU = np.flipud(NIFTYPSU)
 
-NIFTYREALITY = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\NIFTYREALITY.csv")
+NIFTYREALITY = pd.read_csv("F:\\FinanceRepo\\Deep-Learning-Time-Series-Prediction-using-LSTM-Recurrent-Neural-Networks-master\\Current\\Nifty Realty Historical Rates - Investing.com.csv")
 NIFTYREALITY['Date'] = pd.to_datetime(NIFTYREALITY['Date'])
 NIFTYREALITY = NIFTYREALITY[NIFTYREALITY.Date > AfterDate ]
 NIFTYREALITY = NIFTYREALITY.as_matrix(["Change %"])
@@ -131,36 +131,19 @@ Pandas_Matrix['MovingAvarage_2'] = pd.rolling_mean(Pandas_Matrix[11], window = 5
 Pandas_Matrix['MovingAvarage_3'] = pd.rolling_mean(Pandas_Matrix[11], window = 10, min_periods = 10)
 Pandas_Matrix['MovingAvarage_4'] = pd.rolling_mean(Pandas_Matrix[11], window = 5, min_periods = 5)
 Pandas_Matrix['MovingAvarage_5'] = pd.rolling_mean(Pandas_Matrix[11], window = 15, min_periods = 15)
-Pandas_Matrix['MovingAvarage_6'] = pd.rolling_mean(Pandas_Matrix[12], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_7'] = pd.rolling_mean(Pandas_Matrix[13], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_8'] = pd.rolling_mean(Pandas_Matrix[14], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_9'] = pd.rolling_mean(Pandas_Matrix[15], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_10'] = pd.rolling_mean(Pandas_Matrix[16], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_11'] = pd.rolling_mean(Pandas_Matrix[17], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_12'] = pd.rolling_mean(Pandas_Matrix[18], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_13'] = pd.rolling_mean(Pandas_Matrix[19], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_14'] = pd.rolling_mean(Pandas_Matrix[20], window = 50, min_periods = 50)
-Pandas_Matrix['MovingAvarage_15'] = pd.rolling_mean(Pandas_Matrix[21], window = 50, min_periods = 50)
-
-
-
 Pandas_Matrix = Pandas_Matrix[100:]
 
 y = Pandas_Matrix['Main'].values
-Pandas_Matrix = Pandas_Matrix.drop(['Main',33,34,35,36,37,38,39,40,41,42,43],axis=1)
+Pandas_Matrix = Pandas_Matrix.drop(['Main',0,1,2,3,4,5,6,7,8,9,10],axis=1)
 X = Pandas_Matrix.values
 #Xtrain, Xtest = X[:int(len(X) * 0.90)], X[int(len(X) * 0.90):] 
 #ytrain, ytest = y[:int(len(y) * 0.90)], y[int(len(y) * 0.90):] 
 
-Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.01, random_state=35)
-print(Xtrain.shape)
-print(Xtest.shape)
+Xtest,ytest = X,y
 
-gadaboost = GradientBoostingClassifier()
-gadaboost.fit(Xtrain, ytrain)
 
-with open('my_dumped_classifier.pkl', 'wb') as fid:
-    pickle.dump(gadaboost, fid)    
+with open('my_dumped_classifier.pkl', 'rb') as fid:
+    gadaboost = pickle.load(fid)    
     
 y_val_l = gadaboost.predict_proba(Xtest)
 print("Validation accuracy: ", sum(pd.DataFrame(y_val_l).idxmax(axis=1).values

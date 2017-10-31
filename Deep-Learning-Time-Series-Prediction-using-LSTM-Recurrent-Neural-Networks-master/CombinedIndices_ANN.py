@@ -24,6 +24,7 @@ import datetime
 from keras.models import Sequential
 from keras.layers import Dense, Dropout,Conv1D,GlobalMaxPooling1D
 from keras.layers.core import Flatten
+from keras.layers.recurrent import LSTM
 
 AfterDate = datetime.date(2012,1,1)
 
@@ -126,22 +127,23 @@ Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.10)
 Xtrain = Xtrain.reshape(Xtrain.shape[0],Xtrain.shape[1],1)
 Xtest = Xtest.reshape(Xtest.shape[0],Xtest.shape[1],1)
 
+# build the model
 model = Sequential()
-model.add(Conv1D(128, 5, activation='relu',input_shape=(Xtrain.shape[1],1)))
-model.add(Flatten())
-model.add(Dense(64,  activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(1, activation='sigmoid'))
-
-model.compile(loss='binary_crossentropy',
-              optimizer='rmsprop',
-              metrics=['accuracy'])
+# layer 1: LSTM
+model.add(LSTM( input_dim=1, output_dim=50, return_sequences=True))
+model.add(Dropout(0.2))
+# layer 2: LSTM
+model.add(LSTM(output_dim=100, return_sequences=False))
+model.add(Dropout(0.2))
+# layer 3: dense
+# linear activation: a(x) = x
+model.add(Dense(output_dim=1, activation='sigmoid'))
+# compile the model
+model.compile(loss="binary_crossentropy", optimizer="adam",metrics=['accuracy'])
 
 model.fit(Xtrain, ytrain,
-          epochs=200,
-          batch_size=16, validation_data=(Xtest, ytest))
+          
+          batch_size=128, validation_data=(Xtest, ytest))
 score = model.evaluate(Xtest, ytest, batch_size=32)
 target = open('C:\\Users\\kaust\\Downloads\\WinPython-64bit-3.5.2.3Qt5\\myScripts\\out.txt', 'w')
 y_pre = model.predict_classes(Xtest)
