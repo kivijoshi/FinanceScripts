@@ -2,6 +2,7 @@ Joel Greenblatt's magic formula combined with piotroski f score is applied to in
 
 Below is the list of top companies.
  * Please exclude yourself the utility and finance companies as those do not follow magic formula investing well
+ * List is sorted with strongest companies on top and descending progressively
  
  Updated list on 31st Oct 2017
  
